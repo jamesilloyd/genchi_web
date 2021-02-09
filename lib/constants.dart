@@ -48,3 +48,7 @@ const kEditAccountTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );
+
+
+const String kPlayStoreURL = 'https://play.google.com/store/apps/details?id=app.genchi.genchi';
+const String kAppStoreURL = 'https://apps.apple.com/us/app/genchi/id1473696183';

@@ -1,6 +1,9 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:genchi_web/components/appBar.dart';
 import 'package:genchi_web/components/circular_progress.dart';
+import 'package:genchi_web/components/display_picture.dart';
+import 'package:genchi_web/components/task_preview.dart';
 import 'package:genchi_web/constants.dart';
 import 'package:genchi_web/models/task.dart';
 import 'package:genchi_web/components/task_card.dart';
@@ -10,6 +13,7 @@ import 'package:genchi_web/services/firestore_api_service.dart';
 import 'package:genchi_web/services/task_service.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OpportunitiesScreen extends StatefulWidget {
   static const id = 'opportunities_screen';
@@ -44,25 +48,55 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> {
         child: AppBar(
           backgroundColor: Color(kGenchiGreen),
           centerTitle: true,
+          actions: [
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 70, 0),
+                child: MaterialButton(
+                  splashColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  child: AutoSizeText('Back to Landing Page',
+                      style: TextStyle(
+                        color: Colors.white,
+                      )),
+                  onPressed: () async {
+
+                    if(await canLaunch('https://www.genchi.app')){
+                      launch('https://genchi.app');
+                    } else {
+                      print('could not launch');
+                    }
+                  },
+                ),
+              ),
+            )
+          ],
           flexibleSpace: Padding(
             padding: const EdgeInsets.all(5.0),
-            child: Image.asset('images/Logo_Only.png',fit: BoxFit.contain,),
+            child: Image.asset(
+              'images/Logo_Only.png',
+              fit: BoxFit.contain,
+            ),
           ),
         ),
       ),
       // appBar: BasicAppNavigationBar(),
-      backgroundColor: Colors.white,
+      backgroundColor: Color(kGenchiCream),
       body: ListView(
         children: [
+          SizedBox(height: 20),
           Center(
             child: Text('Opportunities', style: kHeaderTextStyle),
           ),
-          Image.network('https://firebasestorage.googleapis.com/v0/b/genchi-c96c1.appspot.com/o/images%2Fusers%2F4q2KCwdRvpTcDad7E9mIJXbc6om22020-07-25%2013%3A53%3A38.167726.png?alt=media&token=e8e1a967-6746-4ab8-b891-632cd8375d4c'),
           ModalProgressHUD(
             inAsyncCall: showSpinner,
             progressIndicator: CircularProgress(),
             child: Padding(
-              padding: const EdgeInsets.all(40.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20),
               child: Column(
                 // physics: AlwaysScrollableScrollPhysics(),
                 // padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -132,9 +166,13 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> {
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
                         return Container(
-                          height: 60,
+                          height: 80,
                           child: Center(
-                            child: Text('Loading...'),
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  Color(kGenchiOrange)),
+                              strokeWidth: 3.0,
+                            ),
                           ),
                         );
                       }
@@ -157,7 +195,11 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> {
                         return GridView.builder(
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2, childAspectRatio: 3),
+                                  crossAxisCount:
+                                      MediaQuery.of(context).size.width > 1000
+                                          ? 2
+                                          : 1,
+                                  childAspectRatio: 3),
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: tasksAndHirers.length,
@@ -165,7 +207,6 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> {
                             Map taskAndHirer = tasksAndHirers[index];
                             Task task = taskAndHirer['task'];
                             GenchiUser hirer = taskAndHirer['hirer'];
-
 
                             if ((task.service == filter) || (filter == 'ALL')) {
                               return WebTaskCard(
@@ -178,23 +219,37 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> {
                                 imageURL: hirer.displayPictureURL,
                                 task: task,
                                 onTap: () async {
-                                  //TODO: Finish this off!
                                   // setState(() {
                                   //   showSpinner = true;
                                   // });
                                   //
-                                  // await taskProvider.updateCurrentTask(
-                                  //     taskId: task.taskId);
+                                  await taskProvider.updateCurrentTask(
+                                      taskId: task.taskId);
                                   //
                                   // setState(() {
                                   //   showSpinner = false;
                                   // });
+
                                   //
-                                  // ///Check whether it is the users task or not
+                                  // showModalBottomSheet(context: context, builder: (context) => Container(
+                                  //   height: 50,
+                                  //   color: Colors.green,
+                                  // ));
+
+                                  showBottomSheet(
+                                    backgroundColor: Colors.transparent,
+                                    context: context,
+                                    builder: (context) => Center(
+                                      child:
+                                          TaskPreview(hirer: hirer, task: task),
+                                    ),
+                                  );
+
+                                  ///Check whether it is the users task or not
                                   // bool isUsersTask =
                                   //     taskProvider.currentTask.hirerId ==
                                   //         currentUser.id;
-                                  //
+
                                   // if (isUsersTask) {
                                   //   Navigator.pushNamed(
                                   //       context, TaskScreenHirer.id);

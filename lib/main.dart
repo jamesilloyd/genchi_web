@@ -59,8 +59,9 @@ class MyApp extends StatelessWidget {
         accentColor: Color(kGenchiGreen),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SignInScreen(),
-      // home: OpportunitiesScreen(),
+      //TODO: decide whether login is required or not
+      // home: SignInScreen(),
+      home: OpportunitiesScreen(),
       routes: {
         OpportunitiesScreen.id: (context) => OpportunitiesScreen(),
       },
