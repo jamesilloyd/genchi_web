@@ -61,6 +61,7 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> {
                   child: AutoSizeText('Back to Landing Page',
                       style: TextStyle(
                         color: Colors.white,
+                        fontWeight: FontWeight.w400,
                       )),
                   onPressed: () async {
 
@@ -107,7 +108,7 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       Text(
-                        'OPPORTUNITIES FEED',
+                        'FEED',
                         style: TextStyle(
                           fontSize: 20,
                         ),
@@ -170,7 +171,8 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> {
                           child: Center(
                             child: CircularProgressIndicator(
                               valueColor: AlwaysStoppedAnimation<Color>(
-                                  Color(kGenchiOrange)),
+                                  Color(kGenchiOrange),
+                              ),
                               strokeWidth: 3.0,
                             ),
                           ),
@@ -180,7 +182,6 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> {
                           snapshot.data;
 
                       // final List<Widget> widgets = [];
-
                       if (tasksAndHirers.isEmpty) {
                         return Container(
                           height: 40,
@@ -193,8 +194,7 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> {
                         );
                       } else {
                         return GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount:
                                       MediaQuery.of(context).size.width > 1000
                                           ? 2
@@ -225,12 +225,13 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> {
                                   //
                                   await taskProvider.updateCurrentTask(
                                       taskId: task.taskId);
-                                  //
+
+
                                   // setState(() {
                                   //   showSpinner = false;
                                   // });
 
-                                  //
+
                                   // showModalBottomSheet(context: context, builder: (context) => Container(
                                   //   height: 50,
                                   //   color: Colors.green,
