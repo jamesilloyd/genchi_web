@@ -4,9 +4,9 @@ const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
   "version.json": "d9d5c7a6980509e3617bc1b19b44bbfc",
-"index.html": "23155fb02339ca654e2a9273a8308b8d",
-"/": "23155fb02339ca654e2a9273a8308b8d",
-"main.dart.js": "a8c43f92d657310e5749bbe7d079bc6b",
+"index.html": "788a435a9d5a84486a8d2fcd55adb323",
+"/": "788a435a9d5a84486a8d2fcd55adb323",
+"main.dart.js": "96421e5479ef6d078969acfc53849aa6",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
@@ -14,12 +14,14 @@ const RESOURCES = {
 "assets/images/supporters/CambridgeLogo.png": "d4754cc3da563f782934de6918ef4e17",
 "assets/images/supporters/YCSUSLogo.png": "92a048a9565c3f8200098372bee3ad05",
 "assets/images/supporters/RAELogo.png": "6499965fc9609e5e679af02f6157ecb3",
+"assets/images/HomePageGraphic.png": "990db223497b7a866698d986f392aa89",
 "assets/images/filter.png": "de16b598505a75ac23319641a7953d0f",
 "assets/images/Logo_Only.png": "616a068303223c4b3b6e90fd81bc332a",
+"assets/images/iphone12.png": "c65e4acaee45fd3c27aeddd3cb1b0a9f",
 "assets/images/badges/app_store_badge.png": "fa6a0408b59f93392c4091a1eb25bf0f",
 "assets/images/badges/google-play-badge.png": "d7380cb93f6bcbe4da0de96d4c083589",
-"assets/AssetManifest.json": "2a62cd0a9ce11852340a5388304c7236",
-"assets/NOTICES": "9cdf0dd8a07edcf5ee3345ebeb0c0d9d",
+"assets/AssetManifest.json": "34f28a27bd92c138479ca9ffad2ce498",
+"assets/NOTICES": "7c5584eec9e2d64cb9e9f2f5a327bf30",
 "assets/FontManifest.json": "0be9b54881f188874f1d4d22b65814ce",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "115e937bb829a890521f72d2e664b632",
 "assets/fonts/FuturaPTDemi.otf": "5b6575ccd521b96b68504700b10e3e66",
@@ -173,7 +175,7 @@ async function downloadOffline() {
     }
     currentContent[key] = true;
   }
-  for (var resourceKey in Object.keys(RESOURCES)) {
+  for (var resourceKey of Object.keys(RESOURCES)) {
     if (!currentContent[resourceKey]) {
       resources.push(resourceKey);
     }

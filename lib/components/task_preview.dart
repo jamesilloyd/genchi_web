@@ -18,8 +18,8 @@ class TaskPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    previewTotalHeight = MediaQuery.of(context).size.height * 0.75 - 40;
-    previewTotalWidth = MediaQuery.of(context).size.width * 0.5 - 40;
+    previewTotalHeight = MediaQuery.of(context).size.height * 0.75 ;
+    previewTotalWidth = MediaQuery.of(context).size.width > 650 ?  650  : MediaQuery.of(context).size.width * 0.9 ;
     return Container(
       decoration: BoxDecoration(
           boxShadow: [
@@ -30,27 +30,28 @@ class TaskPreview extends StatelessWidget {
               offset: Offset(0, 3), // changes position of shadow
             ),
           ],
-          color: Colors.white,
+          color: Color(kGenchiCream),
           borderRadius: BorderRadius.all(Radius.circular(20))),
-      width: MediaQuery.of(context).size.width * 0.5,
-      height: MediaQuery.of(context).size.height * 0.75,
+      width: previewTotalWidth + 30,
+      height: previewTotalWidth + 30,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(15.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
               height: previewTotalHeight * 0.3,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   LargeDisplayPicture(
                     imageUrl: hirer.displayPictureURL,
                     height: previewTotalWidth * 0.3,
                   ),
                   SizedBox(
-                    width: previewTotalWidth * 0.55,
+                    // width: MediaQuery.of(context).size.width > 650 ? previewTotalWidth*0.53 :previewTotalWidth * 0.3,
+                    width:  previewTotalWidth*0.63,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -59,7 +60,7 @@ class TaskPreview extends StatelessWidget {
                           flex: 1,
                           child: AutoSizeText(
                             task.title,
-                            style: TextStyle(fontSize: 35),
+                            style: TextStyle(fontSize: 35,fontWeight: FontWeight.w500),
                           ),
                         ),
                         Expanded(
@@ -80,44 +81,36 @@ class TaskPreview extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
-                    width: previewTotalWidth * 0.05,
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                          icon: Icon(Icons.close),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          }),
-                    ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                        icon: Icon(Icons.close),
+                        iconSize: 20,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        }),
                   )
                 ],
               ),
             ),
+            Divider(height:0, thickness: 1,),
             Container(
               height: previewTotalHeight * 0.4,
               child: ListView(
                 children: [
                   Divider(height: 0,),
                   AutoSizeText(
-                    'Application Deadline',
+                    task.hasFixedDeadline && task.applicationDeadline != null
+                        ? 'Application Deadline: ' + getApplicationDeadline(
+                        time: task.applicationDeadline)
+                        : 'Application Deadline: OPEN APPLICATION',
                     style:
                         TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
                   ),
                   AutoSizeText(
-                    task.hasFixedDeadline && task.applicationDeadline != null
-                        ? getApplicationDeadline(
-                            time: task.applicationDeadline)
-                        : 'OPEN',
-                    style: task.hasFixedDeadline &&
-                            task.applicationDeadline != null
-                        ? kBodyTextStyle
-                        : TextStyle(
-                            fontSize: 20, color: Color(kGenchiOrange)),
-                  ),
-                  AutoSizeText(
                     'Details',
                     style: TextStyle(
+
                         fontWeight: FontWeight.w500, fontSize: 16),
                   ),
                   AutoSizeText(
@@ -128,6 +121,7 @@ class TaskPreview extends StatelessWidget {
                 ],
               ),
             ),
+            Divider(height:0,thickness: 1,),
             Container(
               height: previewTotalHeight * 0.3,
               child: Column(

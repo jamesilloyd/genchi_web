@@ -50,9 +50,10 @@ class FirestoreAPIService {
     await _feedbackCollectionRef.add(feedback.toJson());
   }
 
-  Future addUniveristy({String uni}) async {
+  Future addUniveristy({String uni, String email, String reason}) async {
+
     await _universityCollectionRef
-        .add({'univeristy': uni, 'time': Timestamp.now()});
+        .add({'univeristy': uni, 'time': Timestamp.now(), 'reason':reason,'email':email});
   }
 
   ///***------------------ SERVICE SEARCH FUNCTIONS ------------------***

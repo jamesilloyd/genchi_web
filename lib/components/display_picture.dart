@@ -30,22 +30,22 @@ class LargeDisplayPicture extends StatelessWidget {
                         width: 50,
                         child: Container(
                             child: Center(child: CircularProgress()))),
-                    // errorWidget: (context, string, dynamic) => Container(
-                    //   width: 50.0,
-                    //   height: 50.0,
-                    //   decoration: BoxDecoration(
-                    //     shape: BoxShape.circle,
-                    //     color: Color(0xffC4C4C4),
-                    //   ),
-                    //   child: FittedBox(
-                    //     fit: BoxFit.scaleDown,
-                    //     child: Icon(
-                    //       isEdit ? Icons.add : Icons.person,
-                    //       color: isEdit ? Colors.black : Color(0xff585858),
-                    //       size: isEdit ? 12 : 40,
-                    //     ),
-                    //   ),
-                    // ),
+                    errorWidget: (context, string, dynamic) => Container(
+                      width: 50.0,
+                      height: 50.0,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color(0xffC4C4C4),
+                      ),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Icon(
+                          isEdit ? Icons.add : Icons.person,
+                          color: isEdit ? Colors.black : Color(0xff585858),
+                          size: isEdit ? 12 : 40,
+                        ),
+                      ),
+                    ),
                     imageBuilder: (context, imageProvider) => Container(
                       width: 50.0,
                       height: 50.0,

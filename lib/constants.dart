@@ -13,6 +13,20 @@ const kGenchiBrown = 0xffD3CCAF;
 const kGenchiLightBlue = 0xff534F8E;
 
 
+Map<int, Color> orangeColor = {
+  50: Color.fromRGBO(241, 147, 0, .1),
+  100: Color.fromRGBO(241, 147, 0, .2),
+  200: Color.fromRGBO(241, 147, 0, .3),
+  300: Color.fromRGBO(241, 147, 0, .4),
+  400: Color.fromRGBO(241, 147, 0, .5),
+  500: Color.fromRGBO(241, 147, 0, .6),
+  600: Color.fromRGBO(241, 147, 0, .7),
+  700: Color.fromRGBO(241, 147, 0, .8),
+  800: Color.fromRGBO(241, 147, 0, .9),
+  900: Color.fromRGBO(241, 147, 0, 1),
+};
+
+
 const kRed = 0xffDA2222;
 const kGreen = 0xff41820E;
 const kPurple = 0xff5415BA;
@@ -39,12 +53,17 @@ const kEditAccountTextFieldDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   fillColor: Colors.white,
   filled: true,
+  hintStyle: TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.w300,
+      fontFamily: 'FuturaPT'
+  ),
   enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.black, width: 1.0),
+    borderSide: BorderSide(color: Colors.black, width: .5),
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
   focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.black, width: 2.0),
+    borderSide: BorderSide(color: Colors.black, width: 1.0),
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );

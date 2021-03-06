@@ -16,7 +16,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class OpportunitiesScreen extends StatefulWidget {
-  static const id = 'opportunities_screen';
+  static const id = '/opportunities';
 
   @override
   _OpportunitiesScreenState createState() => _OpportunitiesScreenState();
@@ -41,238 +41,220 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> {
     final taskProvider = Provider.of<TaskService>(context);
     final authProvider = Provider.of<AuthenticationService>(context);
     GenchiUser currentUser = authProvider.currentUser;
-
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80.0),
-        child: AppBar(
-          backgroundColor: Color(kGenchiGreen),
-          centerTitle: true,
-          actions: [
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 70, 0),
-                child: MaterialButton(
-                  splashColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  child: AutoSizeText('Back to Landing Page',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                      )),
-                  onPressed: () async {
-
-                    if(await canLaunch('https://www.genchi.app')){
-                      launch('https://genchi.app');
-                    } else {
-                      print('could not launch');
-                    }
-                  },
-                ),
-              ),
-            )
-          ],
-          flexibleSpace: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Image.asset(
-              'images/Logo_Only.png',
-              fit: BoxFit.contain,
-            ),
-          ),
-        ),
-      ),
-      // appBar: BasicAppNavigationBar(),
-      backgroundColor: Color(kGenchiCream),
+      backgroundColor: Colors.white,
       body: ListView(
         children: [
+          Container(
+            height: MediaQuery.of(context).size.height * 0.12,
+            color: Color(kGenchiGreen),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        // _index = 0;
+                      });
+                    },
+                    child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                            maxHeight:
+                            MediaQuery.of(context).size.height *
+                                0.07),
+                        child: Image.asset('images/Logo_Only.png')),
+                  ),
+
+                  Text(authProvider.currentUser.name),
+                  // Expanded(
+                  //   flex: 1,
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       TextButton(
+                  //         onPressed: () {
+                  //
+                  //           Navigator.pushNamedAndRemoveUntil(context, OpportunitiesScreen.id,
+                  //                   (Route<dynamic> route) => false);
+                  //         },
+                  //         // highlightColor: Colors.transparent,
+                  //         // splashColor: Colors.transparent,
+                  //         // hoverColor: Colors.transparent,
+                  //         child: Text(
+                  //           'Opportunities',
+                  //           style: TextStyle(
+                  //               color: Colors.white, fontSize: 20),
+                  //         ),
+                  //       ),
+                  //       SizedBox(width: 20,),
+                  //       TextButton(
+                  //         onPressed: () {
+                  //           setState(() {
+                  //             // _index = 1;
+                  //           });
+                  //         },
+                  //         // highlightColor: Colors.transparent,
+                  //         // splashColor: Colors.transparent,
+                  //         // hoverColor: Colors.transparent,
+                  //         child: Text(
+                  //           'Team',
+                  //           style: TextStyle(
+                  //               color: Colors.white, fontSize: 20),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                ],
+              ),
+            ),
+          ),
           SizedBox(height: 20),
           Center(
-            child: Text('Opportunities', style: kHeaderTextStyle),
+            child: Text('OPPORTUNITIES',
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500)),
           ),
           ModalProgressHUD(
             inAsyncCall: showSpinner,
             progressIndicator: CircularProgress(),
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20),
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width > 400 ? 40 : 10,
+                  vertical: 0),
               child: Column(
-                // physics: AlwaysScrollableScrollPhysics(),
-                // padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 children: [
-                  SizedBox(height: 25),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Text(
-                        'FEED',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      ),
-                      // SizedBox(
-                      //     child: Align(
-                      //       alignment: Alignment.bottomCenter,
-                      //       child: PopupMenuButton(
-                      //           elevation: 1,
-                      //           child: Row(
-                      //               mainAxisAlignment: MainAxisAlignment.end,
-                      //               children: <Widget>[
-                      //                 Text(
-                      //                   filter.toUpperCase(),
-                      //                   style: TextStyle(fontSize: 20),
-                      //                 ),
-                      //                 SizedBox(width: 5),
-                      //                 ImageIcon(
-                      //                   AssetImage('images/filter.png'),
-                      //                   color: Colors.black,
-                      //                   size: 30,
-                      //                 ),
-                      //                 SizedBox(
-                      //                   width: 5,
-                      //                 )
-                      //               ]),
-                      //           itemBuilder: (_) {
-                      //             List<PopupMenuItem<String>> items = [
-                      //               const PopupMenuItem<String>(
-                      //                   child: const Text('ALL'), value: 'ALL'),
-                      //             ];
-                      //             for (Service service in servicesList) {
-                      //               items.add(
-                      //                 new PopupMenuItem<String>(
-                      //                     child: Text(
-                      //                         service.databaseValue.toUpperCase()),
-                      //                     value: service.databaseValue),
-                      //               );
-                      //             }
-                      //             return items;
-                      //           },
-                      //           onSelected: (value) {
-                      //             setState(() {
-                      //               filter = value;
-                      //             });
-                      //           }),
-                      //     )),
-                    ],
-                  ),
                   Divider(
-                    height: 5,
                     thickness: 1,
                   ),
-                  FutureBuilder(
-                    future: searchTasksFuture,
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return Container(
-                          height: 80,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  Color(kGenchiOrange),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    constraints: BoxConstraints(
+                      minHeight: 200,
+                    ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(44)),
+                        color: Color(0xffEFEDE7)),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      child: FutureBuilder(
+                        future: searchTasksFuture,
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return Container(
+                              height: 80,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Color(kGenchiOrange),
+                                  ),
+                                  strokeWidth: 3.0,
+                                ),
                               ),
-                              strokeWidth: 3.0,
-                            ),
-                          ),
-                        );
-                      }
-                      final List<Map<String, dynamic>> tasksAndHirers =
-                          snapshot.data;
+                            );
+                          }
 
-                      // final List<Widget> widgets = [];
-                      if (tasksAndHirers.isEmpty) {
-                        return Container(
-                          height: 40,
-                          child: Center(
-                            child: Text(
-                              'No opportunities yet. Check again later',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ),
-                        );
-                      } else {
-                        return GridView.builder(
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount:
-                                      MediaQuery.of(context).size.width > 1000
-                                          ? 2
-                                          : 1,
-                                  childAspectRatio: 3),
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: tasksAndHirers.length,
-                          itemBuilder: (context, index) {
-                            Map taskAndHirer = tasksAndHirers[index];
-                            Task task = taskAndHirer['task'];
-                            GenchiUser hirer = taskAndHirer['hirer'];
+                          final List<Map<String, dynamic>> tasksAndHirers =
+                              snapshot.data;
 
-                            if ((task.service == filter) || (filter == 'ALL')) {
-                              return WebTaskCard(
-                                hirer: hirer,
-                                newTask: task.time
-                                        .toDate()
-                                        .difference(DateTime.now())
-                                        .inHours >
-                                    -36,
-                                imageURL: hirer.displayPictureURL,
-                                task: task,
-                                onTap: () async {
-                                  // setState(() {
-                                  //   showSpinner = true;
-                                  // });
-                                  //
-                                  await taskProvider.updateCurrentTask(
-                                      taskId: task.taskId);
+                          // final List<Widget> widgets = [];
+                          if (tasksAndHirers.isEmpty) {
+                            return Container(
+                              height: 40,
+                              child: Center(
+                                child: Text(
+                                  'No opportunities yet. Check again later',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ),
+                            );
+                          } else {
+                            return GridView.builder(
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount:
+                                          MediaQuery.of(context).size.width > 1000
+                                              ? 2
+                                              : 1,
+                                      childAspectRatio: 3),
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: tasksAndHirers.length,
+                              itemBuilder: (context, index) {
+                                Map taskAndHirer = tasksAndHirers[index];
+                                Task task = taskAndHirer['task'];
+                                GenchiUser hirer = taskAndHirer['hirer'];
 
+                                if ((task.service == filter) ||
+                                    (filter == 'ALL')) {
+                                  return WebTaskCard(
+                                    hirer: hirer,
+                                    newTask: task.time
+                                            .toDate()
+                                            .difference(DateTime.now())
+                                            .inHours >
+                                        -36,
+                                    imageURL: hirer.displayPictureURL,
+                                    task: task,
+                                    onTap: () async {
+                                      // setState(() {
+                                      //   showSpinner = true;
+                                      // });
+                                      //
+                                      await taskProvider.updateCurrentTask(
+                                          taskId: task.taskId);
 
-                                  // setState(() {
-                                  //   showSpinner = false;
-                                  // });
+                                      // setState(() {
+                                      //   showSpinner = false;
+                                      // });
 
+                                      // showModalBottomSheet(context: context, builder: (context) => Container(
+                                      //   height: 50,
+                                      //   color: Colors.green,
+                                      // ));
 
-                                  // showModalBottomSheet(context: context, builder: (context) => Container(
-                                  //   height: 50,
-                                  //   color: Colors.green,
-                                  // ));
+                                      showBottomSheet(
+                                        backgroundColor: Colors.transparent,
+                                        context: context,
+                                        builder: (context) => Center(
+                                          child: TaskPreview(
+                                              hirer: hirer, task: task),
+                                        ),
+                                      );
 
-                                  showBottomSheet(
-                                    backgroundColor: Colors.transparent,
-                                    context: context,
-                                    builder: (context) => Center(
-                                      child:
-                                          TaskPreview(hirer: hirer, task: task),
-                                    ),
+                                      ///Check whether it is the users task or not
+                                      // bool isUsersTask =
+                                      //     taskProvider.currentTask.hirerId ==
+                                      //         currentUser.id;
+
+                                      // if (isUsersTask) {
+                                      //   Navigator.pushNamed(
+                                      //       context, TaskScreenHirer.id);
+                                      // } else {
+                                      //   ///If viewing someone else's task, add their id to the viewedIds if it hasn't been added yet
+                                      //   if (!taskProvider.currentTask.viewedIds
+                                      //       .contains(currentUser.id))
+                                      //     await firestoreAPI.addViewedIdToTask(
+                                      //         viewedId: currentUser.id,
+                                      //         taskId: task.taskId);
+                                      //   Navigator.pushNamed(
+                                      //       context, TaskScreenApplicant.id);
+                                      // }
+                                    },
                                   );
-
-                                  ///Check whether it is the users task or not
-                                  // bool isUsersTask =
-                                  //     taskProvider.currentTask.hirerId ==
-                                  //         currentUser.id;
-
-                                  // if (isUsersTask) {
-                                  //   Navigator.pushNamed(
-                                  //       context, TaskScreenHirer.id);
-                                  // } else {
-                                  //   ///If viewing someone else's task, add their id to the viewedIds if it hasn't been added yet
-                                  //   if (!taskProvider.currentTask.viewedIds
-                                  //       .contains(currentUser.id))
-                                  //     await firestoreAPI.addViewedIdToTask(
-                                  //         viewedId: currentUser.id,
-                                  //         taskId: task.taskId);
-                                  //   Navigator.pushNamed(
-                                  //       context, TaskScreenApplicant.id);
-                                  // }
-                                },
-                              );
-                            } else {
-                              return SizedBox.shrink();
-                            }
-                          },
-                        );
-                      }
-                    },
+                                } else {
+                                  return SizedBox.shrink();
+                                }
+                              },
+                            );
+                          }
+                        },
+                      ),
+                    ),
                   ),
                   SizedBox(
                     height: 200,

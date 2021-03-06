@@ -36,21 +36,19 @@ class WebTaskCard extends StatelessWidget {
       child: MaterialButton(
         clipBehavior: Clip.hardEdge,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
-        color: Colors.white,
+        color: Color(kGenchiCream),
         splashColor: Colors.transparent,
         highlightColor: Colors.black12,
         elevation: 0,
-
         onPressed: onTap,
         child: Padding(
           padding: EdgeInsets.all(10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Expanded(
-                flex: 1,
+              Flexible(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -73,24 +71,22 @@ class WebTaskCard extends StatelessWidget {
                           children: [
                             if (newTask)
                               Expanded(
-                                flex:1,
+                                flex: 1,
                                 child: AutoSizeText(
                                   'New',
+                                  style: TextStyle(color: Color(kGenchiOrange)),
                                 ),
                               ),
                             Expanded(
-                              flex:1,
+                              flex: 2,
                               child: AutoSizeText(
                                 task.title,
                                 style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: hasUnreadMessage
-                                        ? FontWeight.w500
-                                        : FontWeight.w400),
+                                    fontSize: 20, fontWeight: FontWeight.w500),
                               ),
                             ),
                             Expanded(
-                              flex:1,
+                              flex: 2,
                               child: AutoSizeText(
                                 task.hasFixedDeadline &&
                                         task.applicationDeadline != null
@@ -112,6 +108,8 @@ class WebTaskCard extends StatelessWidget {
                     ),
                     AutoSizeText(
                       hirer.university,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           color: Color(kGenchiOrange)),
@@ -121,20 +119,17 @@ class WebTaskCard extends StatelessWidget {
               ),
               // SizedBox(height: 10),
               //TODO: sort out the overflow on this
-              Expanded(
+              SizedBox(
+                height: 10,
+              ),
+              Flexible(
                 flex: 1,
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: AutoSizeText(
-                    task.details,
-                    maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
-                    minFontSize: 10,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14
-                    ),
-                  ),
+                child: AutoSizeText(
+                  task.details,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  // minFontSize: 10,
+                  // style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
                 ),
               )
             ],
