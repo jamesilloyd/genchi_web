@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:genchi_web/components/basic_nav_bar.dart';
+import 'package:genchi_web/components/circular_progress.dart';
 import 'package:genchi_web/components/platform_alerts.dart';
 import 'package:genchi_web/constants.dart';
 import 'package:genchi_web/models/preferences.dart';
@@ -10,6 +11,7 @@ import 'package:genchi_web/screens/post_reg_details_screen.dart';
 import 'package:genchi_web/services/account_service.dart';
 import 'package:genchi_web/services/authentication_service.dart';
 import 'package:genchi_web/services/firestore_api_service.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 
 class PreferencesScreen extends StatefulWidget {
@@ -26,6 +28,8 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
 
   bool chip1 = false;
   bool changesMade = false;
+
+  bool showSpinner = false;
 
   List<Tag> allTags = List.generate(
       originalTags.length, (index) => Tag.fromTag(originalTags[index]));
@@ -140,190 +144,203 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
         onTap: () {
           FocusScope.of(context).requestFocus(new FocusNode());
         },
-        child: ListView(
-          children: [
-            BasicNavBar(),
-            SizedBox(height: 15),
-            Center(
-              child: Text(
-                'Preferences',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
-              ),
-            ),
-            Divider(
-              thickness: 1,
-              endIndent: MediaQuery.of(context).size.width * 0.25,
-              indent: MediaQuery.of(context).size.width * 0.25,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'What type of opportunities are you after?',
-                  textAlign: TextAlign.center,
-                  style: kTitleTextStyle,
+        child: ModalProgressHUD(
+          inAsyncCall: showSpinner,
+          progressIndicator: CircularProgress(),
+          child: ListView(
+            children: [
+              BasicNavBar(),
+              SizedBox(height: 15),
+              Center(
+                child: Text(
+                  'Preferences',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
                 ),
-                IconButton(
-                  icon: Icon(
-                    Icons.help_outline_outlined,
-                    size: 18,
+              ),
+              Divider(
+                thickness: 1,
+                endIndent: MediaQuery.of(context).size.width * 0.25,
+                indent: MediaQuery.of(context).size.width * 0.25,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'What type of opportunities are you after?',
+                    textAlign: TextAlign.center,
+                    style: kTitleTextStyle,
                   ),
-                  onPressed: () async {
-                    await showDialogBox(
-                        context: context,
-                        title: 'Types of Opportunities',
-                        body:
-                            'Select the type of opportunities you are after and we will optimise our platform to get you these opportunities.');
+                  IconButton(
+                    icon: Icon(
+                      Icons.help_outline_outlined,
+                      size: 18,
+                    ),
+                    onPressed: () async {
+                      await showDialogBox(
+                          context: context,
+                          title: 'Types of Opportunities',
+                          body:
+                              'Select the type of opportunities you are after and we will optimise our platform to get you these opportunities.');
+                    },
+                  ),
+                ],
+              ),
+              Center(
+                child: SizedBox(
+                  width: 400,
+                  child: Wrap(
+                    alignment: WrapAlignment.start,
+                    crossAxisAlignment: WrapCrossAlignment.start,
+                    children: _chipBuilder(values: allTags, filter: 'type'),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              Center(
+                child: SizedBox(
+                  width: 400,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'In what areas?',
+                        style: kTitleTextStyle,
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.help_outline_outlined,
+                          size: 18,
+                        ),
+                        onPressed: () async {
+                          await showDialogBox(
+                              context: context,
+                              title: 'Areas',
+                              body:
+                                  'Select the areas you would like the opportunities to be in.');
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Center(
+                child: SizedBox(
+                  width: 400,
+                  child: Wrap(
+                    alignment: WrapAlignment.start,
+                    crossAxisAlignment: WrapCrossAlignment.start,
+                    children: _chipBuilder(values: allTags, filter: 'area'),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              Center(
+                child: SizedBox(
+                  width: 400,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'What specifications?',
+                        style: kTitleTextStyle,
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.help_outline_outlined,
+                          size: 18,
+                        ),
+                        onPressed: () async {
+                          await showDialogBox(
+                              context: context,
+                              title: 'Specification',
+                              body:
+                                  'Select the constraints you want for these opportunities.');
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Center(
+                child: SizedBox(
+                  width: 400,
+                  child: Wrap(
+                    alignment: WrapAlignment.start,
+                    crossAxisAlignment: WrapCrossAlignment.start,
+                    children: _chipBuilder(values: allTags, filter: 'spec'),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              Divider(
+                thickness: 1,
+                endIndent: MediaQuery.of(context).size.width * 0.25,
+                indent: MediaQuery.of(context).size.width * 0.25,
+              ),
+              SizedBox(height: 10),
+              Center(
+                child: MaterialButton(
+                  onPressed: ()async {
+
+
+                    setState(() {
+                      showSpinner = true;
+                    });
+
+                    List allPreferences = [];
+
+                    for (Tag tag in allTags) {
+                      if (tag.selected) allPreferences.add(tag.databaseValue);
+                    }
+
+                    currentAccount.preferences = allPreferences;
+                    currentAccount.hasSetPreferences = true;
+
+                    await firestoreAPI.updateUser(
+                        uid: currentAccount.id, user: currentAccount);
+
+                    await Provider.of<AuthenticationService>(context,
+                        listen: false)
+                        .updateCurrentUserData();
+
+                    setState(() {
+                      showSpinner = false;
+                    });
+
+                      ///Move on to the next page
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, OpportunitiesScreen.id, (Route<dynamic> route)=> false);
+
                   },
-                ),
-              ],
-            ),
-            Center(
-              child: SizedBox(
-                width: 400,
-                child: Wrap(
-                  alignment: WrapAlignment.start,
-                  crossAxisAlignment: WrapCrossAlignment.start,
-                  children: _chipBuilder(values: allTags, filter: 'type'),
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-            Center(
-              child: SizedBox(
-                width: 400,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'In what areas?',
-                      style: kTitleTextStyle,
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.help_outline_outlined,
-                        size: 18,
+                  child: Container(
+                    height: 50,
+                    width: 300,
+                    decoration: BoxDecoration(
+                        color: Color(kGenchiOrange),
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    child: Center(
+                      child: Text(
+                        'ENTER PLATFORM',
+                        style: TextStyle(color: Colors.white),
                       ),
-                      onPressed: () async {
-                        await showDialogBox(
-                            context: context,
-                            title: 'Areas',
-                            body:
-                                'Select the areas you would like the opportunities to be in.');
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Center(
-              child: SizedBox(
-                width: 400,
-                child: Wrap(
-                  alignment: WrapAlignment.start,
-                  crossAxisAlignment: WrapCrossAlignment.start,
-                  children: _chipBuilder(values: allTags, filter: 'area'),
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-            Center(
-              child: SizedBox(
-                width: 400,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'What specifications?',
-                      style: kTitleTextStyle,
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.help_outline_outlined,
-                        size: 18,
-                      ),
-                      onPressed: () async {
-                        await showDialogBox(
-                            context: context,
-                            title: 'Specification',
-                            body:
-                                'Select the constraints you want for these opportunities.');
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Center(
-              child: SizedBox(
-                width: 400,
-                child: Wrap(
-                  alignment: WrapAlignment.start,
-                  crossAxisAlignment: WrapCrossAlignment.start,
-                  children: _chipBuilder(values: allTags, filter: 'spec'),
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-            Divider(
-              thickness: 1,
-              endIndent: MediaQuery.of(context).size.width * 0.25,
-              indent: MediaQuery.of(context).size.width * 0.25,
-            ),
-            SizedBox(height: 10),
-            Center(
-              child: MaterialButton(
-                onPressed: ()async {
-
-                  List allPreferences = [];
-
-                  for (Tag tag in allTags) {
-                    if (tag.selected) allPreferences.add(tag.databaseValue);
-                  }
-
-                  currentAccount.preferences = allPreferences;
-                  currentAccount.hasSetPreferences = true;
-
-                  await firestoreAPI.updateUser(
-                      uid: currentAccount.id, user: currentAccount);
-
-                  await Provider.of<AuthenticationService>(context,
-                      listen: false)
-                      .updateCurrentUserData();
-
-                    ///Move on to the next page
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, OpportunitiesScreen.id, (Route<dynamic> route)=> false);
-
-                },
-                child: Container(
-                  height: 50,
-                  width: 300,
-                  decoration: BoxDecoration(
-                      color: Color(kGenchiOrange),
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                  child: Center(
-                    child: Text(
-                      'ENTER PLATFORM',
-                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
               ),
-            ),
-            Center(
-              child: SizedBox(
-                width: 400,
-                child: Wrap(
-                  alignment: WrapAlignment.start,
-                  children: _otherChipBuilder(values: allTags),
+              Center(
+                child: SizedBox(
+                  width: 400,
+                  child: Wrap(
+                    alignment: WrapAlignment.start,
+                    children: _otherChipBuilder(values: allTags),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.2,
-            )
-          ],
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.2,
+              )
+            ],
+          ),
         ),
       ),
     );

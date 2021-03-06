@@ -123,9 +123,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       await accountService.updateCurrentAccount(id: authProvider.currentUser.id);
                       Navigator.pushNamedAndRemoveUntil(
                           context,
-                          //TODO: Temporary
-                          // OpportunitiesScreen.id,
-                          PreferencesScreen.id,
+                          OpportunitiesScreen.id,
                           (Route<dynamic> route) => false);
                     }
                   } catch (e) {

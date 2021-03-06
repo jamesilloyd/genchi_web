@@ -1,11 +1,13 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:genchi_web/components/basic_nav_bar.dart';
 import 'package:genchi_web/components/edit_account_text_field.dart';
 import 'package:genchi_web/components/platform_alerts.dart';
 import 'package:genchi_web/constants.dart';
 import 'package:genchi_web/models/user.dart';
 import 'package:genchi_web/screens/opportunities_screen.dart';
+import 'package:genchi_web/screens/preferences_screen.dart';
 import 'package:genchi_web/screens/sign_in_screen.dart';
 import 'package:genchi_web/screens/uni_not_listed_screen.dart';
 import 'package:genchi_web/services/account_service.dart';
@@ -71,30 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Scrollbar(
           child: ListView(
             children: [
-              Container(
-                height: MediaQuery.of(context).size.height * 0.12,
-                color: Color(kGenchiGreen),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            // _index = 0;
-                          });
-                        },
-                        child: ConstrainedBox(
-                            constraints: BoxConstraints(
-                                maxHeight:
-                                    MediaQuery.of(context).size.height * 0.07),
-                            child: Image.asset('images/Logo_Only.png')),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              BasicNavBar(),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.1,
               ),
@@ -397,10 +376,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                         Navigator.pushNamedAndRemoveUntil(
                             context,
-                            OpportunitiesScreen.id,
+                            PreferencesScreen.id,
                             (Route<dynamic> route) => false);
-                            // arguments: PreferencesScreenArguments(
-                            //     isFromRegistration: true));
                       }
                     } catch (e) {
                       print(e);

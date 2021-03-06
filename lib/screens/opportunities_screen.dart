@@ -76,49 +76,15 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> {
                             .pushNamedAndRemoveUntil(SignInScreen.id,
                                 (Route<dynamic> route) => false);
                       },
-                      child: Text('Log Out'),
+                      child: Text(
+                        'Log Out',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
 
-                    Text(authProvider.currentUser.name),
-                    // Expanded(
-                    //   flex: 1,
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
-                    //       TextButton(
-                    //         onPressed: () {
-                    //
-                    //           Navigator.pushNamedAndRemoveUntil(context, OpportunitiesScreen.id,
-                    //                   (Route<dynamic> route) => false);
-                    //         },
-                    //         // highlightColor: Colors.transparent,
-                    //         // splashColor: Colors.transparent,
-                    //         // hoverColor: Colors.transparent,
-                    //         child: Text(
-                    //           'Opportunities',
-                    //           style: TextStyle(
-                    //               color: Colors.white, fontSize: 20),
-                    //         ),
-                    //       ),
-                    //       SizedBox(width: 20,),
-                    //       TextButton(
-                    //         onPressed: () {
-                    //           setState(() {
-                    //             // _index = 1;
-                    //           });
-                    //         },
-                    //         // highlightColor: Colors.transparent,
-                    //         // splashColor: Colors.transparent,
-                    //         // hoverColor: Colors.transparent,
-                    //         child: Text(
-                    //           'Team',
-                    //           style: TextStyle(
-                    //               color: Colors.white, fontSize: 20),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
+                    //TODO: add in other options
                   ],
                 ),
               ),
@@ -152,121 +118,123 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(44)),
                           color: Color(0xffEFEDE7)),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        // child: FutureBuilder(
-                        //   future: searchTasksFuture,
-                        //   builder: (context, snapshot) {
-                        //     if (!snapshot.hasData) {
-                        //       return Container(
-                        //         height: 80,
-                        //         child: Center(
-                        //           child: CircularProgressIndicator(
-                        //             valueColor: AlwaysStoppedAnimation<Color>(
-                        //               Color(kGenchiOrange),
-                        //             ),
-                        //             strokeWidth: 3.0,
-                        //           ),
-                        //         ),
-                        //       );
-                        //     }
-                        //
-                        //     final List<Map<String, dynamic>> tasksAndHirers =
-                        //         snapshot.data;
-                        //
-                        //     // final List<Widget> widgets = [];
-                        //     if (tasksAndHirers.isEmpty) {
-                        //       return Container(
-                        //         height: 40,
-                        //         child: Center(
-                        //           child: Text(
-                        //             'No opportunities yet. Check again later',
-                        //             style: TextStyle(fontSize: 20),
-                        //           ),
-                        //         ),
-                        //       );
-                        //     } else {
-                        //       return GridView.builder(
-                        //         gridDelegate:
-                        //         SliverGridDelegateWithFixedCrossAxisCount(
-                        //             crossAxisCount:
-                        //             MediaQuery.of(context).size.width > 1000
-                        //                 ? 2
-                        //                 : 1,
-                        //             childAspectRatio: 3),
-                        //         shrinkWrap: true,
-                        //         physics: NeverScrollableScrollPhysics(),
-                        //         itemCount: tasksAndHirers.length,
-                        //         itemBuilder: (context, index) {
-                        //           Map taskAndHirer = tasksAndHirers[index];
-                        //           Task task = taskAndHirer['task'];
-                        //           GenchiUser hirer = taskAndHirer['hirer'];
-                        //
-                        //           if ((task.service == filter) ||
-                        //               (filter == 'ALL')) {
-                        //             return WebTaskCard(
-                        //               hirer: hirer,
-                        //               newTask: task.time
-                        //                   .toDate()
-                        //                   .difference(DateTime.now())
-                        //                   .inHours >
-                        //                   -36,
-                        //               imageURL: hirer.displayPictureURL,
-                        //               task: task,
-                        //               onTap: () async {
-                        //                 // setState(() {
-                        //                 //   showSpinner = true;
-                        //                 // });
-                        //                 //
-                        //                 await taskProvider.updateCurrentTask(
-                        //                     taskId: task.taskId);
-                        //
-                        //                 // setState(() {
-                        //                 //   showSpinner = false;
-                        //                 // });
-                        //
-                        //                 // showModalBottomSheet(context: context, builder: (context) => Container(
-                        //                 //   height: 50,
-                        //                 //   color: Colors.green,
-                        //                 // ));
-                        //
-                        //                 showBottomSheet(
-                        //                   backgroundColor: Colors.transparent,
-                        //                   context: context,
-                        //                   builder: (context) => Center(
-                        //                     child: TaskPreview(
-                        //                         hirer: hirer, task: task),
-                        //                   ),
-                        //                 );
-                        //
-                        //                 ///Check whether it is the users task or not
-                        //                 // bool isUsersTask =
-                        //                 //     taskProvider.currentTask.hirerId ==
-                        //                 //         currentUser.id;
-                        //
-                        //                 // if (isUsersTask) {
-                        //                 //   Navigator.pushNamed(
-                        //                 //       context, TaskScreenHirer.id);
-                        //                 // } else {
-                        //                 //   ///If viewing someone else's task, add their id to the viewedIds if it hasn't been added yet
-                        //                 //   if (!taskProvider.currentTask.viewedIds
-                        //                 //       .contains(currentUser.id))
-                        //                 //     await firestoreAPI.addViewedIdToTask(
-                        //                 //         viewedId: currentUser.id,
-                        //                 //         taskId: task.taskId);
-                        //                 //   Navigator.pushNamed(
-                        //                 //       context, TaskScreenApplicant.id);
-                        //                 // }
-                        //               },
-                        //             );
-                        //           } else {
-                        //             return SizedBox.shrink();
-                        //           }
-                        //         },
-                        //       );
-                        //     }
-                        //   },
-                        // ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 60, vertical: 20),
+                        child: FutureBuilder(
+                          future: searchTasksFuture,
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return Container(
+                                height: 80,
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      Color(kGenchiOrange),
+                                    ),
+                                    strokeWidth: 3.0,
+                                  ),
+                                ),
+                              );
+                            }
+
+                            final List<Map<String, dynamic>> tasksAndHirers =
+                                snapshot.data;
+
+                            // final List<Widget> widgets = [];
+                            if (tasksAndHirers.isEmpty) {
+                              return Container(
+                                height: 40,
+                                child: Center(
+                                  child: Text(
+                                    'No opportunities yet. Check again later',
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                ),
+                              );
+                            } else {
+                              return GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount:
+                                            MediaQuery.of(context).size.width >
+                                                    1000
+                                                ? 2
+                                                : 1,
+                                        childAspectRatio: 3),
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: tasksAndHirers.length,
+                                itemBuilder: (context, index) {
+                                  Map taskAndHirer = tasksAndHirers[index];
+                                  Task task = taskAndHirer['task'];
+                                  GenchiUser hirer = taskAndHirer['hirer'];
+
+                                  if ((task.service == filter) ||
+                                      (filter == 'ALL')) {
+                                    return WebTaskCard(
+                                      hirer: hirer,
+                                      newTask: task.time
+                                              .toDate()
+                                              .difference(DateTime.now())
+                                              .inHours >
+                                          -36,
+                                      imageURL: hirer.displayPictureURL,
+                                      task: task,
+                                      onTap: () async {
+                                        // setState(() {
+                                        //   showSpinner = true;
+                                        // });
+                                        //
+                                        await taskProvider.updateCurrentTask(
+                                            taskId: task.taskId);
+
+                                        // setState(() {
+                                        //   showSpinner = false;
+                                        // });
+
+                                        // showModalBottomSheet(context: context, builder: (context) => Container(
+                                        //   height: 50,
+                                        //   color: Colors.green,
+                                        // ));
+
+                                        showBottomSheet(
+                                          backgroundColor: Colors.transparent,
+                                          context: context,
+                                          builder: (context) => Center(
+                                            child: TaskPreview(
+                                                hirer: hirer, task: task),
+                                          ),
+                                        );
+
+                                        ///Check whether it is the users task or not
+                                        // bool isUsersTask =
+                                        //     taskProvider.currentTask.hirerId ==
+                                        //         currentUser.id;
+
+                                        // if (isUsersTask) {
+                                        //   Navigator.pushNamed(
+                                        //       context, TaskScreenHirer.id);
+                                        // } else {
+                                        //   ///If viewing someone else's task, add their id to the viewedIds if it hasn't been added yet
+                                        //   if (!taskProvider.currentTask.viewedIds
+                                        //       .contains(currentUser.id))
+                                        //     await firestoreAPI.addViewedIdToTask(
+                                        //         viewedId: currentUser.id,
+                                        //         taskId: task.taskId);
+                                        //   Navigator.pushNamed(
+                                        //       context, TaskScreenApplicant.id);
+                                        // }
+                                      },
+                                    );
+                                  } else {
+                                    return SizedBox.shrink();
+                                  }
+                                },
+                              );
+                            }
+                          },
+                        ),
                       ),
                     ),
                     SizedBox(
