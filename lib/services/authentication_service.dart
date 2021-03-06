@@ -28,7 +28,7 @@ class AuthenticationService extends ChangeNotifier {
   Future<bool> isUserLoggedIn() async {
 
     try {
-      print("isUserLoggedIn");
+
       var user = _firebaseAuth.currentUser;
       if (user != null) {
         await _populateCurrentUser(user); // Populate the user
@@ -39,8 +39,10 @@ class AuthenticationService extends ChangeNotifier {
         // thisUser.versionNumber = packageInfo.version;
         // thisUser.sessionCount ++;
         // await _firestoreCRUDModel.updateUser(user: thisUser,uid: thisUser.id);
+        print("isUserLoggedIn ${true}");
         return true;
       } else {
+        print("isUserLoggedIn ${false}");
         return false;
       }
     } catch (e) {
@@ -83,6 +85,8 @@ class AuthenticationService extends ChangeNotifier {
             name: name,
             university: uni,
             timeStamp: Timestamp.now(),
+            //TODO: this is just for web
+            accountCreatedOnWeb: true,
             admin: false,
             accountType: type));
         await updateCurrentUserData();

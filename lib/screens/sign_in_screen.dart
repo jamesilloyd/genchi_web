@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:genchi_web/components/basic_nav_bar.dart';
 import 'package:genchi_web/components/edit_account_text_field.dart';
 import 'package:genchi_web/constants.dart';
+import 'package:genchi_web/screens/forgot_password_screen.dart';
 import 'package:genchi_web/screens/opportunities_screen.dart';
+import 'package:genchi_web/screens/preferences_screen.dart';
 import 'package:genchi_web/screens/register_screen.dart';
+import 'package:genchi_web/services/account_service.dart';
 import 'package:genchi_web/services/authentication_service.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
@@ -28,12 +32,16 @@ class _SignInScreenState extends State<SignInScreen> {
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
+    print('Sign in screen closed');
   }
 
   @override
   Widget build(BuildContext context) {
+    print('Sign in screen open');
     AuthenticationService authProvider =
         Provider.of<AuthenticationService>(context);
+    AccountService accountService =
+    Provider.of<AccountService>(context);
     return Scaffold(
       backgroundColor: Color(kGenchiCream),
       body: ModalProgressHUD(
@@ -46,30 +54,7 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
         child: ListView(
           children: <Widget>[
-            Container(
-              height: MediaQuery.of(context).size.height * 0.12,
-              color: Color(kGenchiGreen),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          // _index = 0;
-                        });
-                      },
-                      child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                              maxHeight:
-                                  MediaQuery.of(context).size.height * 0.07),
-                          child: Image.asset('images/Logo_Only.png')),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            BasicNavBar(),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.15,
             ),
@@ -133,11 +118,14 @@ class _SignInScreenState extends State<SignInScreen> {
                     setState(() {
                       showSpinner = false;
                     });
-                    //This populates the current user simultaneously
+                    ///This populates the current user simultaneously
                     if (await authProvider.isUserLoggedIn() == true) {
+                      await accountService.updateCurrentAccount(id: authProvider.currentUser.id);
                       Navigator.pushNamedAndRemoveUntil(
                           context,
-                          OpportunitiesScreen.id,
+                          //TODO: Temporary
+                          // OpportunitiesScreen.id,
+                          PreferencesScreen.id,
                           (Route<dynamic> route) => false);
                     }
                   } catch (e) {
@@ -164,6 +152,15 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
             ),
             SizedBox(height: 10),
+            Center(
+              child: MaterialButton(
+                onPressed: (){
+
+                  Navigator.pushNamed(context,ForgotPasswordScreen.id);
+                },
+                child: Text('Forgot Password?',style: TextStyle(color: Colors.black54)),
+              ),
+            ),
             Divider(
               thickness: 1,
               endIndent: MediaQuery.of(context).size.width * 0.25,

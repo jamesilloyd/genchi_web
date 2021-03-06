@@ -4,8 +4,10 @@ file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/components/appBar.
 file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/components/circular_progress.dart
 file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/components/display_picture.dart
 file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/components/edit_account_text_field.dart
+file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/components/platform_alerts.dart
 file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/components/task_card.dart
 file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/components/task_preview.dart
+file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/configure_web.dart
 file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/constants.dart
 file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/generated_plugin_registrant.dart
 file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/main.dart
@@ -15,7 +17,9 @@ file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/models/task.dart
 file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/models/user.dart
 file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/screens/home_screen.dart
 file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/screens/opportunities_screen.dart
+file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/screens/register_screen.dart
 file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/screens/sign_in_screen.dart
+file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/screens/uni_not_listed_screen.dart
 file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/services/account_service.dart
 file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/services/authentication_service.dart
 file:///Users/heisenberg/AndroidStudioProjects/genchi_web/lib/services/firestore_api_service.dart

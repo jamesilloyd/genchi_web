@@ -50,18 +50,13 @@ final List<Tag> originalTags = [
     category: 'type',
   ),
   Tag(
-    displayName: 'STEM',
-    databaseValue: 'STEM',
-    category: 'area',
-  ),
-  Tag(
-    displayName: 'Public Sector',
-    databaseValue: 'Public Sector',
-    category: 'area',
-  ),
-  Tag(
     displayName: 'Social Impact',
     databaseValue: 'Social Impact',
+    category: 'area',
+  ),
+  Tag(
+    displayName: 'STEM',
+    databaseValue: 'STEM',
     category: 'area',
   ),
   Tag(
