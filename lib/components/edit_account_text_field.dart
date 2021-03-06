@@ -38,7 +38,7 @@ class EditAccountField extends StatelessWidget {
         SizedBox(height: 5.0),
         TextField(
           textCapitalization: TextCapitalization.sentences,
-          maxLines: null,
+          maxLines: isPassword? 1: null,
           style: TextStyle(
             color: isEditable ? Colors.black : Colors.grey,
             fontSize: 18.0,
