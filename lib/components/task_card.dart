@@ -31,39 +31,41 @@ class WebTaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: MaterialButton(
-        clipBehavior: Clip.hardEdge,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        color: Color(kGenchiCream),
-        splashColor: Colors.transparent,
-        highlightColor: Colors.black12,
-        elevation: 0,
-        onPressed: onTap,
-        child: Padding(
-          padding: EdgeInsets.all(10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Flexible(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                        child: ListDisplayPicture(
-                          imageUrl: imageURL,
-                          height: 56,
-                        ),
+    return MaterialButton(
+      padding: EdgeInsets.zero,
+      clipBehavior: Clip.hardEdge,
+      // shape: RoundedRectangleBorder(
+      //   borderRadius: BorderRadius.circular(10.0),
+      // ),
+      color: Color(kGenchiCream),
+      splashColor: Colors.transparent,
+      highlightColor: Colors.black12,
+      elevation: 2,
+      onPressed: onTap,
+
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Flexible(
+              flex: 1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0,0,10,0),
+                      child: ListDisplayPicture(
+                        imageUrl: imageURL,
+                        // TODO: need to set this programatically...
+                        height: MediaQuery.of(context).size.width*0.05,
                       ),
                     ),
-                    Flexible(
-                      child: Align(
+                  ),
+                  Flexible(
+                    child: Align(
                         alignment: Alignment.centerLeft,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,6 +83,8 @@ class WebTaskCard extends StatelessWidget {
                               flex: 2,
                               child: AutoSizeText(
                                 task.title,
+                                maxLines: 1,
+                                minFontSize: 14,
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.w500),
                               ),
@@ -104,36 +108,36 @@ class WebTaskCard extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ),
-                    ),
-                    AutoSizeText(
+                        ),
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: AutoSizeText(
                       hirer.university,
-                      maxLines: 2,
+                      maxLines: 1,
+                      textAlign: TextAlign.right,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           color: Color(kGenchiOrange)),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              // SizedBox(height: 10),
-              //TODO: sort out the overflow on this
-              SizedBox(
-                height: 10,
+            ),
+            SizedBox(height: 10),
+            //TODO: sort out the overflow on this
+            Flexible(
+              flex: 1,
+              child: AutoSizeText(
+                task.details,
+                maxLines: MediaQuery.of(context).size.width < 1000 ? 6 : MediaQuery.of(context).size.width < 1300 ? 2 : 4,
+                overflow: TextOverflow.ellipsis,
+                minFontSize: 14,
+                style: TextStyle(fontWeight: FontWeight.w400,fontSize: 16),
               ),
-              Flexible(
-                flex: 1,
-                child: AutoSizeText(
-                  task.details,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  // minFontSize: 10,
-                  // style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

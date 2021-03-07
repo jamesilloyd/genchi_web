@@ -122,21 +122,21 @@ class ListDisplayPicture extends StatelessWidget {
                 ),
               ),
             ),
-            // errorWidget: (context, string, dynamic) => Container(
-            //   height: height,
-            //   width: height,
-            //   child: CircleAvatar(
-            //     backgroundColor: Color(0xffC4C4C4),
-            //     child: FittedBox(
-            //       fit: BoxFit.scaleDown,
-            //       child: Icon(
-            //         Icons.person,
-            //         color: Color(0xff585858),
-            //         size: 25,
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            errorWidget: (context, string, dynamic) => Container(
+              height: height,
+              width: height,
+              child: CircleAvatar(
+                backgroundColor: Color(0xffC4C4C4),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Icon(
+                    Icons.person,
+                    color: Color(0xff585858),
+                    size: 25,
+                  ),
+                ),
+              ),
+            ),
             imageBuilder: (context, imageProvider) => Container(
               width: height,
               height: height,

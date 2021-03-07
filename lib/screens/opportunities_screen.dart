@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:genchi_web/components/appBar.dart';
@@ -23,18 +24,21 @@ class OpportunitiesScreen extends StatefulWidget {
   _OpportunitiesScreenState createState() => _OpportunitiesScreenState();
 }
 
-class _OpportunitiesScreenState extends State<OpportunitiesScreen> {
+class _OpportunitiesScreenState extends State<OpportunitiesScreen> with SingleTickerProviderStateMixin{
   FirestoreAPIService firestoreAPI = FirestoreAPIService();
 
   String filter = 'ALL';
   Future searchTasksFuture;
   bool showSpinner = false;
 
+  AnimationController transitionController;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     searchTasksFuture = firestoreAPI.fetchTasksAndHirers();
+    transitionController = AnimationController(duration: Duration(milliseconds: 750),vsync: this,);
   }
 
   @override
@@ -161,6 +165,8 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> {
                                                     1000
                                                 ? 2
                                                 : 1,
+                                        crossAxisSpacing: 40,
+                                        mainAxisSpacing: 20,
                                         childAspectRatio: 3),
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
@@ -181,24 +187,20 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> {
                                           -36,
                                       imageURL: hirer.displayPictureURL,
                                       task: task,
-                                      onTap: () async {
+                                      onTap: ()  {
                                         // setState(() {
                                         //   showSpinner = true;
                                         // });
+
+                                        // await taskProvider.updateCurrentTask(
+                                        //     taskId: task.taskId);
                                         //
-                                        await taskProvider.updateCurrentTask(
-                                            taskId: task.taskId);
-
-                                        // setState(() {
-                                        //   showSpinner = false;
-                                        // });
-
-                                        // showModalBottomSheet(context: context, builder: (context) => Container(
-                                        //   height: 50,
-                                        //   color: Colors.green,
-                                        // ));
-
+                                        // // setState(() {
+                                        // //   showSpinner = false;
+                                        // // });
+                                        //
                                         showBottomSheet(
+                                          transitionAnimationController: transitionController,
                                           backgroundColor: Colors.transparent,
                                           context: context,
                                           builder: (context) => Center(
@@ -208,6 +210,7 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> {
                                         );
 
                                         ///Check whether it is the users task or not
+                                        ///TODO: this functionality isn't added yet
                                         // bool isUsersTask =
                                         //     taskProvider.currentTask.hirerId ==
                                         //         currentUser.id;

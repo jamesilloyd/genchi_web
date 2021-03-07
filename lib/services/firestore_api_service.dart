@@ -631,6 +631,7 @@ class FirestoreAPIService {
         tasksAndHirers.add(taskAndHirer);
       }
     }
+
     return tasksAndHirers;
   }
 
