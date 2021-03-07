@@ -86,7 +86,47 @@ class TaskPreview extends StatelessWidget {
             thickness: 1,
             height: 0,
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
+          SizedBox(
+            height: previewTotalHeight * 0.2,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: LargeDisplayPicture(
+                      imageUrl: hirer.displayPictureURL,
+                      height: previewTotalHeight * 0.2),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      hirer.name,
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(height: 10),
+
+          if (hirer.bio != '')
+            Center(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
+                child: SelectableText(
+                  hirer.bio,
+                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
+                ),
+              ),
+            ),
+          SizedBox(height: 10),
           Center(
             child: AutoSizeText(
               'For Students At',
@@ -120,155 +160,135 @@ class TaskPreview extends StatelessWidget {
           ),
           Center(
             child: AutoSizeText(
-                task.hasFixedDeadline && task.applicationDeadline != null
-                          ?  getApplicationDeadline(time: task.applicationDeadline)
-                  : 'OPEN APPLICATION',
+              task.hasFixedDeadline && task.applicationDeadline != null
+                  ? getApplicationDeadline(time: task.applicationDeadline)
+                  : 'Open Application',
               style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
             ),
           ),
           SizedBox(height: 20),
-          // Container(
-          //   height: previewTotalHeight * 0.3,
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.start,
-          //     children: [
-          //       LargeDisplayPicture(
-          //         imageUrl: hirer.displayPictureURL,
-          //         height: previewTotalWidth * 0.3,
-          //       ),
-          //       SizedBox(
-          //         // width: MediaQuery.of(context).size.width > 650 ? previewTotalWidth*0.53 :previewTotalWidth * 0.3,
-          //         width:  previewTotalWidth*0.63,
-          //         child: Column(
-          //           crossAxisAlignment: CrossAxisAlignment.start,
-          //           mainAxisAlignment: MainAxisAlignment.start,
-          //           children: [
-          //             Expanded(
-          //               flex: 1,
-          //               child: AutoSizeText(
-          //                 task.title,
-          //                 style: TextStyle(fontSize: 35,fontWeight: FontWeight.w500),
-          //               ),
-          //             ),
-          //             Expanded(
-          //               flex: 1,
-          //               child: AutoSizeText(
-          //                 hirer.name,
-          //                 style: TextStyle(
-          //                     fontSize: 30, color: Color(kGenchiOrange)),
-          //               ),
-          //             ),
-          //             Expanded(
-          //               flex: 3,
-          //               child: AutoSizeText(
-          //                 hirer.bio,
-          //                 style: TextStyle(fontSize: 14),
-          //               ),
-          //             )
-          //           ],
-          //         ),
-          //       ),
-          //       Align(
-          //         alignment: Alignment.topRight,
-          //         child: IconButton(
-          //             icon: Icon(Icons.close),
-          //             iconSize: 20,
-          //             onPressed: () {
-          //               Navigator.pop(context);
-          //             }),
-          //       )
-          //     ],
-          //   ),
-          // ),
-          // Divider(height:0, thickness: 1,),
-          // Container(
-          //   height: previewTotalHeight * 0.4,
-          //   child: ListView(
-          //     children: [
-          //       Divider(height: 0,),
-          //       AutoSizeText(
-          //         task.hasFixedDeadline && task.applicationDeadline != null
-          //             ? 'Application Deadline: ' + getApplicationDeadline(
-          //             time: task.applicationDeadline)
-          //             : 'Application Deadline: OPEN APPLICATION',
-          //         style:
-          //             TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-          //       ),
-          //       AutoSizeText(
-          //         'Details',
-          //         style: TextStyle(
-          //
-          //             fontWeight: FontWeight.w500, fontSize: 16),
-          //       ),
-          //       AutoSizeText(
-          //         task.details,
-          //         textAlign: TextAlign.start,
-          //         style: TextStyle(fontSize: 14),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          // Divider(height:0,thickness: 1,),
-          // Container(
-          //   height: previewTotalHeight * 0.3,
-          //   child: Column(
-          //     children: [
-          //       Expanded(flex: 1, child: AutoSizeText('Want to apply?',style: TextStyle(
-          //         fontSize: 35,
-          //         color: Color(kGenchiOrange)
-          //       ),)),
-          //       Expanded(flex: 1, child: AutoSizeText('Create an account on the app',style: TextStyle(
-          //           fontSize: 30,
-          //       ),)),
-          //       Expanded(
-          //         flex: 2,
-          //         child: Row(
-          //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //           children: [
-          //
-          //
-          //             MaterialButton(
-          //               child: Container(
-          //                 height: previewTotalHeight*0.2*0.5,
-          //                 child: Image.asset('images/badges/app_store_badge.png'),
-          //               ),
-          //               splashColor: Colors.transparent,
-          //               hoverColor: Colors.transparent,
-          //               highlightColor: Colors.transparent,
-          //               focusColor: Colors.transparent,
-          //               onPressed: ()async{
-          //
-          //                 if (await canLaunch(kAppStoreURL)) {
-          //                 await launch(kAppStoreURL);
-          //                 } else {
-          //                 print("Could not open URL");
-          //                 }
-          //
-          //               },
-          //             ),
-          //             MaterialButton(
-          //               child: Container(
-          //                 height: previewTotalHeight*0.2*0.5,
-          //                 child: Image.asset('images/badges/google-play-badge.png'),
-          //               ),
-          //               splashColor: Colors.transparent,
-          //               hoverColor: Colors.transparent,
-          //               highlightColor: Colors.transparent,
-          //               focusColor: Colors.transparent,
-          //               onPressed: () async {
-          //                 if (await canLaunch(kPlayStoreURL)) {
-          //                   await launch(kPlayStoreURL);
-          //                 } else {
-          //                   print("Could not open URL");
-          //                 }
-          //               },
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
+          Center(
+            child: AutoSizeText(
+              'Details',
+              maxLines: 1,
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+            ),
+          ),
+          Divider(
+            thickness: 1,
+            height: 0,
+          ),
+          Center(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
+              child: SelectableText(
+                task.details,
+                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
+          Divider(
+            thickness: 1,
+            height: 10,
+          ),
+          //TODO: add in application button if it's a link apply otherwise just put the app links
+          task.linkApplicationType
+              ? MaterialButton(
+                  onPressed: ()async {
+                    ///Send them to the location
+                    if (await canLaunch(task.applicationLink)) {
+                    await launch(task.applicationLink);
+                    } else {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(kApplicationLinkNotWorking);
+                    print("Could not open URL");
+                    }
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 300,
+                    decoration: BoxDecoration(
+                        color: Color(kGenchiGreen),
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    child: Center(
+                      child: Text(
+                        'APPLY',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                )
+              : Column(
+                  children: [
+                    Center(
+                      child: RichText(
+                        text: TextSpan(children: [
+                          TextSpan(
+                              text: 'Want to Apply?\n',
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  fontFamily: 'FuturaPT',
+                                  color: Color(kGenchiOrange),
+                                  fontWeight: FontWeight.w500)),
+                          TextSpan(
+                              text: 'Sign up on the app',
+                              style: TextStyle(
+                                  fontFamily: 'FuturaPT',
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w500)),
+                        ]),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        MaterialButton(
+                          child: Container(
+                            height: previewTotalHeight * 0.2 * 0.5,
+                            child: Image.asset(
+                                'images/badges/app_store_badge.png'),
+                          ),
+                          splashColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          onPressed: () async {
+                            if (await canLaunch(kAppStoreURL)) {
+                              await launch(kAppStoreURL);
+                            } else {
+                              print("Could not open URL");
+                            }
+                          },
+                        ),
+                        MaterialButton(
+                          child: Container(
+                            height: previewTotalHeight * 0.2 * 0.5,
+                            child: Image.asset(
+                                'images/badges/google-play-badge.png'),
+                          ),
+                          splashColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          onPressed: () async {
+                            if (await canLaunch(kPlayStoreURL)) {
+                              await launch(kPlayStoreURL);
+                            } else {
+                              print("Could not open URL");
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                  ],
+                ),
         ],
       ),
     );

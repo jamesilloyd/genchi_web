@@ -9,6 +9,7 @@ import 'package:genchi_web/constants.dart';
 import 'package:genchi_web/models/task.dart';
 import 'package:genchi_web/components/task_card.dart';
 import 'package:genchi_web/models/user.dart';
+import 'package:genchi_web/screens/mobile_screen.dart';
 import 'package:genchi_web/screens/sign_in_screen.dart';
 import 'package:genchi_web/services/authentication_service.dart';
 import 'package:genchi_web/services/firestore_api_service.dart';
@@ -49,7 +50,7 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> with SingleTi
     GenchiUser currentUser = authProvider.currentUser;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Scrollbar(
+      body: MediaQuery.of(context).size.width > 450 ? Scrollbar(
         child: ListView(
           children: [
             Container(
@@ -249,7 +250,7 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen> with SingleTi
             ),
           ],
         ),
-      ),
+      ) : MobileScreen(),
     );
   }
 }

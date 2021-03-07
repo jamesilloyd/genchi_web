@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:genchi_web/constants.dart';
 import 'package:genchi_web/screens/forgot_password_screen.dart';
 import 'package:genchi_web/screens/home_screen.dart';
+import 'package:genchi_web/screens/mobile_screen.dart';
 import 'package:genchi_web/screens/opportunities_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:genchi_web/screens/post_reg_details_screen.dart';
@@ -41,7 +42,6 @@ class Startup extends StatelessWidget {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-
           return MultiProvider(providers: [
             ChangeNotifierProvider(create: (_) => AuthenticationService()),
             ChangeNotifierProvider(create: (_) => TaskService()),
@@ -52,6 +52,7 @@ class Startup extends StatelessWidget {
         /// Otherwise, show something whilst waiting for initialization to complete
         return Container(
           color: Color(kGenchiGreen),
+          child: Image.asset('images/Logo_Only.png'),
         );
       },
     );
@@ -65,7 +66,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   FirebaseAnalytics analytics = FirebaseAnalytics();
 
   @override
@@ -81,17 +81,17 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             title: 'Genchi',
             theme: ThemeData(
-              fontFamily: 'FuturaPT',
-              accentColor: Color(kGenchiGreen),
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-              hoverColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              splashColor: Colors.transparent
-            ),
+                fontFamily: 'FuturaPT',
+                accentColor: Color(kGenchiGreen),
+                visualDensity: VisualDensity.adaptivePlatformDensity,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent),
             navigatorObservers: [
               FirebaseAnalyticsObserver(analytics: analytics),
             ],
             initialRoute: loggedIn ? OpportunitiesScreen.id : SignInScreen.id,
+            // initialRoute: SignInScreen.id,
             routes: {
               MyHomePage.id: (context) => MyHomePage(),
               OpportunitiesScreen.id: (context) => OpportunitiesScreen(),
@@ -105,7 +105,10 @@ class _MyAppState extends State<MyApp> {
             },
           );
         }
-        return Container(color: Color(kGenchiGreen));
+        return Container(
+          color: Color(kGenchiGreen),
+          child: Image.asset('images/Logo_Only.png'),
+        );
       },
     );
   }
