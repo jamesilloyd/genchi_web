@@ -52,7 +52,11 @@ class Startup extends StatelessWidget {
         /// Otherwise, show something whilst waiting for initialization to complete
         return Container(
           color: Color(kGenchiGreen),
-          child: Image.asset('images/Logo_Only.png'),
+          child: Center(
+            child: SizedBox(
+                width: 400,
+                child: Image.asset('images/Logo_Only.png')),
+          ),
         );
       },
     );
@@ -107,7 +111,11 @@ class _MyAppState extends State<MyApp> {
         }
         return Container(
           color: Color(kGenchiGreen),
-          child: Image.asset('images/Logo_Only.png'),
+          child: Center(
+            child: SizedBox(
+                width: 400,
+                child: Image.asset('images/Logo_Only.png')),
+          ),
         );
       },
     );
