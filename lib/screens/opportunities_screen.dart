@@ -33,6 +33,7 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen>
   Future searchTasksFuture;
   bool showSpinner = false;
 
+
   AnimationController transitionController;
 
   @override
@@ -185,7 +186,6 @@ class _OpportunitiesScreenState extends State<OpportunitiesScreen>
                                                     .inHours >
                                                 -36,
                                             imageURL: hirer.displayPictureURL,
-                                            // imageURL: null,
                                             task: task,
                                             onTap: () {
                                               // setState(() {

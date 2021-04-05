@@ -315,7 +315,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: TextStyle(color: Colors.blue),
                           recognizer: new TapGestureRecognizer()
                             ..onTap = () {
-                              launch('https://www.genchi.app/privacy-policy');
+                              launch('https://www.genchi.app#privacy-policy');
                             },
                         ),
                         TextSpan(

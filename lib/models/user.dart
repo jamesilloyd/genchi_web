@@ -8,6 +8,7 @@ class GenchiUser {
   String name;
   String bio;
   String displayPictureFileName;
+  String displayPictureURLThumbnail;
   String displayPictureURL;
   Timestamp timeStamp;
   List<dynamic> tasksApplied;
@@ -21,6 +22,7 @@ class GenchiUser {
   String university;
   String versionNumber;
   int sessionCount;
+
 
   bool accountCreatedOnWeb;
 
@@ -64,7 +66,8 @@ class GenchiUser {
     this.name,
     this.bio,
     this.displayPictureFileName,
-    this.displayPictureURL,
+    this.displayPictureURLThumbnail,
+    this.displayPictureURL ,
     this.timeStamp,
     this.tasksApplied,
     this.chats,

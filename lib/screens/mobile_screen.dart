@@ -27,51 +27,50 @@ class MobileScreen extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: MaterialButton(
-                  child: Container(
-                    height: 50,
-                    child: Image.asset('images/badges/app_store_badge.png'),
-                  ),
-                  splashColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  onPressed: () async {
-                    if (await canLaunch(kAppStoreURL)) {
-                      await launch(kAppStoreURL);
-                    } else {
-                      print("Could not open URL");
-                    }
-                  },
+              MaterialButton(
+                child: Container(
+                  constraints: BoxConstraints(maxHeight: 50),
+                  child: Image.asset('images/badges/app_store_badge.png'),
                 ),
+                splashColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                onPressed: () async {
+                  if (await canLaunch(kAppStoreURL)) {
+                    await launch(kAppStoreURL);
+                  } else {
+                    print("Could not open URL");
+                  }
+                },
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: MaterialButton(
-                  child: Container(
-                    height: 50,
-                    child: Image.asset('images/badges/google-play-badge.png'),
-                  ),
-                  splashColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  onPressed: () async {
-                    if (await canLaunch(kPlayStoreURL)) {
-                      await launch(kPlayStoreURL);
-                    } else {
-                      print("Could not open URL");
-                    }
-                  },
+              MaterialButton(
+                child: Container(
+                  constraints: BoxConstraints(maxHeight: 50),
+                  child: Image.asset('images/badges/google-play-badge.png'),
                 ),
+                splashColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                onPressed: () async {
+                  if (await canLaunch(kPlayStoreURL)) {
+                    await launch(kPlayStoreURL);
+                  } else {
+                    print("Could not open URL");
+                  }
+                },
               ),
             ],
+          ),
+          SizedBox(
+            height: 10,
           ),
           Image.asset('images/HomePageGraphic.png')
         ],
